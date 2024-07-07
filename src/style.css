@@ -1,79 +1,182 @@
+/********** Template CSS **********/
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary: #009CFF;
+  --light: #F3F6F9;
+  --dark: #191C24;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.back-to-top {
+  position: fixed;
+  display: none;
+  right: 45px;
+  bottom: 45px;
+  z-index: 99;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+
+/*** Spinner ***/
+#spinner {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s ease-out, visibility 0s linear .5s;
+  z-index: 99999;
+}
+
+#spinner.show {
+  transition: opacity .5s ease-out, visibility 0s linear 0s;
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/*** Button ***/
+.btn {
+  transition: .5s;
+}
+
+.btn.btn-primary {
+  color: #FFFFFF;
+}
+
+.btn-square {
+  width: 38px;
+  height: 38px;
+}
+
+.btn-sm-square {
+  width: 32px;
+  height: 32px;
+}
+
+.btn-lg-square {
+  width: 48px;
+  height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  border-radius: 50px;
+}
+
+
+/*** Layout ***/
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--light);
+  transition: 0.5s;
+  z-index: 999;
+}
+
+.content {
+  margin-left: 250px;
   min-height: 100vh;
+  background: #FFFFFF;
+  transition: 0.5s;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+@media (min-width: 992px) {
+  .sidebar {
+      margin-left: 0;
+  }
+
+  .sidebar.open {
+      margin-left: -250px;
+  }
+
+  .content {
+      width: calc(100% - 250px);
+  }
+
+  .content.open {
+      width: 100%;
+      margin-left: 0;
+  }
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+@media (max-width: 991.98px) {
+  .sidebar {
+      margin-left: -250px;
+  }
+
+  .sidebar.open {
+      margin-left: 0;
+  }
+
+  .content {
+      width: 100%;
+      margin-left: 0;
+  }
+}
+
+
+
+/*** Date Picker ***/
+.bootstrap-datetimepicker-widget.bottom {
+  top: auto !important;
+}
+
+.bootstrap-datetimepicker-widget .table * {
+  border-bottom-width: 0px;
+}
+
+.bootstrap-datetimepicker-widget .table th {
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-.card {
-  padding: 2em;
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  padding: 10px;
+  border-radius: 2px;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.bootstrap-datetimepicker-widget table td.active,
+.bootstrap-datetimepicker-widget table td.active:hover {
+  background: var(--primary);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.bootstrap-datetimepicker-widget table td.today::before {
+  border-bottom-color: var(--primary);
+}
+
+
+/*** Testimonial ***/
+.progress .progress-bar {
+  width: 0px;
+  transition: 2s;
+}
+
+
+/*** Testimonial ***/
+.testimonial-carousel .owl-dots {
+  margin-top: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.testimonial-carousel .owl-dot {
+  position: relative;
+  display: inline-block;
+  margin: 0 5px;
+  width: 15px;
+  height: 15px;
+  border: 5px solid var(--primary);
+  border-radius: 15px;
+  transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+  background: var(--dark);
+  border-color: var(--primary);
 }
