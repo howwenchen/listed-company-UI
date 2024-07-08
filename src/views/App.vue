@@ -5,6 +5,8 @@
   </div>
 
   <div class="content">
+
+    <!-- 主畫面渲染-->
     <router-view :children="children"></router-view>
 
     <!-- Footer-->

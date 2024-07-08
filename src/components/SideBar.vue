@@ -27,7 +27,7 @@
       <router-link
         v-for="item in navItems"
         :key="item.name"
-        :href="item.link"
+        :to="item.link"
         class="nav-item nav-link"
         :class="{ active: item.active }"
       >
@@ -45,8 +45,9 @@
           <router-link
             v-for="child in dropdown.children"
             :key="child.name"
-            :href="child.link"
+            :to="child.link"
             class="dropdown-item"
+            :class="{ active: child.active }"
           >
             <i class="fa fa-table me-2"></i>{{ child.name }}
           </router-link>
@@ -57,7 +58,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const title = ref("查詢好地方");
 const login = ref("未登錄");
@@ -76,26 +78,46 @@ const dropdownItems = ref([
     name: "上市公司",
     icon: "fa fa-laptop me-2",
     children: [
-      { name: "基本資料", link: { name: "home" } },
+      { name: "基本資料", link: { name: "monthly-revenue" } },
       { name: "每月營業收入彙總表", link: { name: "monthly-revenue" } },
-      { name: "股利分派情形", link: { name: "home" } },
-      { name: "各產業EPS統計資訊", link: { name: "home" } },
+      { name: "股利分派情形", link: { name: "monthly-revenue" } },
+      { name: "各產業EPS統計資訊", link: { name: "monthly-revenue" } },
     ],
   },
   {
     name: "投資專區",
     icon: "fa fa-th me-2",
     children: [
-      { name: "每月國際主要股價指數", link: "#" },
-      { name: "主要國家貨幣每月匯率概況", link: "#" },
-      { name: "國內債券每月發行概況", link: "#" },
+      { name: "每月國際主要股價指數", link: { name: "monthly-revenue" } },
+      { name: "主要國家貨幣每月匯率概況", link: { name: "monthly-revenue" } },
+      { name: "國內債券每月發行概況", link: { name: "monthly-revenue" } },
     ],
   },
 ]);
 
-// 使用 defineExpose 暴露方法和數據
+// 使用 defineExpose 把資料傳到父類別
 defineExpose({
   getDropdownItems: () => dropdownItems.value,
+});
+
+const route = useRoute();
+
+const isActive = (link) => {
+  return route.name === link.name;
+};
+
+watch(route, (newRoute) => {
+  // 更新 navItems 的 active 狀態
+  navItems.value.forEach((item) => {
+    item.active = isActive(item.link);
+  });
+
+  // 更新 dropdownItems 的 active 狀態
+  dropdownItems.value.forEach((dropdown) => {
+    dropdown.children.forEach((child) => {
+      child.active = isActive(child.link);
+    });
+  });
 });
 </script>
 

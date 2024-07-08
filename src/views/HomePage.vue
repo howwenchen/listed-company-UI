@@ -8,7 +8,7 @@
       <!-- 抓取SideBar資料 -->
       <div class="d-flex align-items-center justify-content-between mb-2">
         <h6 class="mb-0">{{ child.name }}</h6>
-        <a :href="child.link">{{ lookUp }}</a>
+        <router-link :to="child.link">{{ lookUp }}</router-link>
       </div>
     </div>
   </div>
