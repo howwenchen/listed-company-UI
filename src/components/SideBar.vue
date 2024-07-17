@@ -121,6 +121,4 @@ watch(route, (newRoute) => {
 });
 </script>
 
-<style scoped>
-/* 添加你的樣式 */
-</style>
+<style scoped></style>
